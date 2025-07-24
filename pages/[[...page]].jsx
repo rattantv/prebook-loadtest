@@ -10,7 +10,7 @@
  * governing permissions and limitations under the License.
  *
  */
-
+import https from 'https';
 import Head from 'next/head';
 import Layout from '../components/layout';
 import {
@@ -19,7 +19,7 @@ import {
 } from '@adobe/aem-react-editable-components';
 import getPages from '../lib/getPages';
 
-const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT } = process.env;
+const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT} = process.env;
 
 export default function Home({ model, pagePath, pages }) {
   return (
@@ -41,11 +41,11 @@ export default function Home({ model, pagePath, pages }) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const pagePath = `/content/wknd-app/us/en/${
-    context.query.page?.join('/') || 'home'
-  }`;
 
+export async function getServerSideProps(context) {
+  const pagePath = `/content/prebooking/th/th_th/${
+    context.query.page?.join('/') || 'main'
+  }`;
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
   const model = await fetchModel({
     pagePath,
@@ -53,7 +53,7 @@ export async function getServerSideProps(context) {
     host: NEXT_PUBLIC_AEM_HOST,
     options: {
       headers: {
-        Authorization: 'Basic YWRtaW46YWRtaW4=',
+        Authorization: 'Basic YWlzdXNlcjpndnd2Z3ZsQEY9OGZ1=',
       },
     },
   });
