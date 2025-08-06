@@ -15,6 +15,13 @@ const path = require('path');
 const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 module.exports = {
+    output: 'export',
+    trailingSlash: true,
+    distDir: 'build',  
+    
+    images: {
+        unoptimized: true
+    },
     reactStrictMode: true,
     async headers() {
         return [
