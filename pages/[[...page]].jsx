@@ -1,27 +1,16 @@
-/*
- * Copyright 2022 Adobe. All rights reserved.
- * This file is licensed to you under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License. You may obtain a copy
- * of the License at http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software distributed under
- * the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR REPRESENTATIONS
- * OF ANY KIND, either express or implied. See the License for the specific language
- * governing permissions and limitations under the License.
- *
- */
-import https from 'https';
-import Head from 'next/head';
-import Layout from '../components/layout';
+import Head from "next/head";
+import Layout from "../components/layout";
 import {
   ResponsiveGrid,
   fetchModel,
-} from '@adobe/aem-react-editable-components';
-import getPages from '../lib/getPages';
+} from "@adobe/aem-react-editable-components";
+import getPages from "../lib/getPages";
 
-const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT} = process.env;
+const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT } = process.env;
 
 export default function Home({ model, pagePath, pages }) {
+  console.log("pagePath:", pagePath);
+  console.log("pages:", pages);
   return (
     <Layout pages={pages}>
       <Head>
@@ -41,22 +30,23 @@ export default function Home({ model, pagePath, pages }) {
   );
 }
 
-
 export async function getServerSideProps(context) {
-  const pagePath = `/content/prebooking/th/th_th/${
-    context.query.page?.join('/') || 'main'
+  const pagePath = `${NEXT_PUBLIC_AEM_ROOT}/${
+    context.query.page?.join("/") || "main"
   }`;
+
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
   const model = await fetchModel({
     pagePath,
-    itemPath: 'root/responsivegrid',
+    itemPath: "root/responsivegrid",
     host: NEXT_PUBLIC_AEM_HOST,
     options: {
       headers: {
-        Authorization: 'Basic YWlzdXNlcjpndnd2Z3ZsQEY9OGZ1=',
+        Authorization: "Basic YWlzdXNlcjpndnd2Z3ZsQEY9OGZ1=",
       },
     },
   });
+
   return {
     props: {
       model,
