@@ -20,8 +20,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          clean: true
           submodules: true
-          lfs: false
           
       - name: Setup Node.js
         uses: actions/setup-node@v3

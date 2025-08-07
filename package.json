@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/",
+    "build": "next build && cp -r .next/static .next/standalone/.next/ && cp -r public .next/standalone/" ,
     "clean": "rm -rf .next/ node_modules/ package-lock.json",
     "start": "next start"
   },
@@ -27,6 +27,6 @@
     "webpack-assets-manifest": "^5.1.0"
   },
   "engines": {
-    "node": "^14 || ^16"
+    "node": "^14 || ^16|| ^18"
   }
 }
