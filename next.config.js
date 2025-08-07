@@ -16,7 +16,14 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 
 module.exports = {
     reactStrictMode: true,
-     output: "standalone",
+    output: "standalone",
+     matcher: [
+    /*
+     * Match all request paths except for the ones starting with:
+     * - .swa (Azure Static Web Apps)
+     */
+    '/((?!.swa).*)',
+  ],
     async headers() {
         return [
             {
