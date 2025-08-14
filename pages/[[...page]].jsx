@@ -9,8 +9,6 @@ import getPages from "../lib/getPages";
 const { NEXT_PUBLIC_AEM_HOST, NEXT_PUBLIC_AEM_ROOT } = process.env;
 
 export default function Home({ model, pagePath, pages }) {
-  console.log("pagePath:", pagePath);
-  console.log("pages:", pages);
   return (
     <Layout pages={pages}>
       <Head>
