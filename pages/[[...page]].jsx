@@ -40,7 +40,7 @@ export async function getServerSideProps(context) {
     host: NEXT_PUBLIC_AEM_HOST,
     options: {
       headers: {
-        Authorization: "Basic YWlzdXNlcjpndnd2Z3ZsQEY9OGZ1=",
+        Authorization: process.env.NEXT_PUBLIC_AEM_TOKEN,
       },
     },
   });
