@@ -6,7 +6,6 @@
     "Access-Control-Max-Age": "86400"
   },
   "navigationFallback": {
-    "rewrite": "/index.html",
     "exclude": ["/*.{png,jpg,gif,ico,svg,json,js,css}", "/api/*"]
   }
 }
