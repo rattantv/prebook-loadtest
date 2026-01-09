@@ -28,6 +28,7 @@ export const Text = (props) => {
     const { richText, text } = props;
     const textCss = "text-gray-800 py-4 sm:py-2 lg:py-6";
     const richTextContent = () => (
+        // Note: Content is expected to be pre-sanitized by AEM before being passed to this component
         <div className={textCss} dangerouslySetInnerHTML={{__html: text}} />
     );
     const normalTextContent = () => (

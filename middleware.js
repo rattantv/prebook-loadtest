@@ -5,6 +5,8 @@ export function middleware() {
     const res = NextResponse.next()
 
     // add the CORS headers to the response
+    // WARNING: Using '*' for Access-Control-Allow-Origin is insecure for production
+    // TODO: Replace '*' with specific allowed origins from environment variables
     res.headers.append('Access-Control-Allow-Credentials', "true")
     res.headers.append('Access-Control-Allow-Origin', '*') // replace this your actual origin
     res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')

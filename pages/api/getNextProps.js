@@ -17,16 +17,33 @@ const { NEXT_PUBLIC_URL } = process.env;
 export default async function handler(req, res) {
   let { path } = req.query;
 
-  const pageRes = await fetch(NEXT_PUBLIC_URL + (path || ""));
-  const pageText = await pageRes.text();
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(pageText, "text/html");
-  const nextPropsContent = doc.getElementById("__NEXT_DATA__").textContent;
-  let data = {};
   try {
-    data = JSON.parse(nextPropsContent);
-  } catch (e) {
-    // return empty object
+    const pageRes = await fetch(NEXT_PUBLIC_URL + (path || ""));
+    
+    if (!pageRes.ok) {
+      return res.status(pageRes.status).json({ error: "Failed to fetch page" });
+    }
+    
+    const pageText = await pageRes.text();
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(pageText, "text/html");
+    const nextDataElement = doc.getElementById("__NEXT_DATA__");
+    
+    if (!nextDataElement) {
+      return res.status(404).json({ error: "Next data not found" });
+    }
+    
+    const nextPropsContent = nextDataElement.textContent;
+    let data = {};
+    try {
+      data = JSON.parse(nextPropsContent);
+    } catch (e) {
+      console.error("Failed to parse next data - invalid JSON format");
+      // return empty object
+    }
+    res.status(200).json(data);
+  } catch (error) {
+    console.error("Error in getNextProps:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
-  res.status(200).json(data);
 }
