@@ -35,15 +35,16 @@ export async function getServerSideProps(context) {
   }`;
 
   const pages = await getPages(NEXT_PUBLIC_AEM_ROOT);
+  
+  // Use server-side AEM_TOKEN if available, otherwise fall back to NEXT_PUBLIC_AEM_TOKEN
+  const token = process.env.AEM_TOKEN || process.env.NEXT_PUBLIC_AEM_TOKEN;
+  const headers = token ? { Authorization: `Basic ${token}` } : {};
+  
   const model = await fetchModel({
     pagePath,
     itemPath: "root/responsivegrid",
     host: NEXT_PUBLIC_AEM_HOST,
-    options: {
-      headers: {
-        Authorization: `Basic ${process.env.NEXT_PUBLIC_AEM_TOKEN}`,
-      },
-    },
+    options: { headers },
   });
 
   return {

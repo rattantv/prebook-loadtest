@@ -38,7 +38,7 @@ export default async function handler(req, res) {
     try {
       data = JSON.parse(nextPropsContent);
     } catch (e) {
-      console.error("Failed to parse next data:", e);
+      console.error("Failed to parse next data - invalid JSON format");
       // return empty object
     }
     res.status(200).json(data);
